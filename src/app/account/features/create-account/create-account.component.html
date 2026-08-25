@@ -1,0 +1,111 @@
+<fieldset class="w-full rounded-4xl border border-blue-200/50 p-7 text-blue-400 shadow-lg md:w-2xl">
+  <legend class="px-4 text-2xl font-bold text-blue-400">Criar conta</legend>
+
+  <form [formRoot]="createAccountForm" class="w-full">
+    <div class="mb-5 w-full">
+      <label for="name" class="mb-1 block text-sm font-medium text-blue-400">Name</label>
+      <input
+        id="name"
+        type="text"
+        [formField]="createAccountForm.name"
+        placeholder="Seu nome"
+        class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      />
+      @if (createAccountForm.name().touched() && createAccountForm.name().invalid()) {
+        <ul class="w-full">
+          @for (error of createAccountForm.name().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="email" class="mb-1 block text-sm font-medium text-blue-400">Email</label>
+      <input
+        id="email"
+        type="email"
+        [formField]="createAccountForm.identifier"
+        placeholder="voce@exemplo.com"
+        class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      />
+      @if (createAccountForm.identifier().touched() && createAccountForm.identifier().invalid()) {
+        <ul class="w-full">
+          @for (error of createAccountForm.identifier().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="password" class="mb-1 block text-sm font-medium text-blue-400">Senha</label>
+      <div class="flex gap-2">
+        <input
+          id="password"
+          [type]="showPassword() ? 'text' : 'password'"
+          [formField]="createAccountForm.password"
+          placeholder="Sua senha"
+          class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+        />
+        <button type="button" (click)="toggleShowPassword()">
+          {{ showPassword() ? 'esconder' : 'ver' }}
+        </button>
+      </div>
+      @if (createAccountForm.password().touched() && createAccountForm.password().invalid()) {
+        <ul class="w-full">
+          @for (error of createAccountForm.password().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="confirm-password" class="mb-1 block text-sm font-medium text-blue-400"
+        >Repetir senha</label
+      >
+      <div class="flex gap-2">
+        <input
+          id="repeatPassword"
+          [type]="showRepeatPassword() ? 'text' : 'password'"
+          [formField]="createAccountForm.repeatPassword"
+          placeholder="Repita sua senha"
+          class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+        />
+        <button type="button" (click)="toggleShowRepeatPassword()">
+          {{ showRepeatPassword() ? 'esconder' : 'ver' }}
+        </button>
+      </div>
+      @if (
+        createAccountForm.repeatPassword().touched() && createAccountForm.repeatPassword().invalid()
+      ) {
+        <ul class="w-full">
+          @for (error of createAccountForm.repeatPassword().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="flex justify-center gap-4">
+      <button
+        type="submit"
+        [disabled]="createAccountForm().submitting()"
+        class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-blue-200"
+      >
+        @if (!createAccountForm().submitting()) {
+          Confirmar
+        } @else {
+          Enviando...
+        }
+      </button>
+      <button
+        type="button"
+        class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-red-200 focus:bg-red-300"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</fieldset>
+<div class="text-center mt-10 text-blue-300 underline">
+  <a routerLink="/login">Fazer login</a>
+</div>
+

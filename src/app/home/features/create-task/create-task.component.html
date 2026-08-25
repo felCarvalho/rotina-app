@@ -1,0 +1,95 @@
+<fieldset class="w-full rounded-4xl border border-blue-200/50 p-7 text-blue-400 shadow-lg md:w-2xl">
+  <legend class="px-4 text-2xl font-bold text-blue-400">Criar tarefa</legend>
+
+  <form [formRoot]="createTaskForm" class="w-full">
+    <div class="mb-5 w-full">
+      <label for="title" class="mb-1 block text-sm font-medium text-blue-400">Título</label>
+      <input
+        id="title"
+        type="text"
+        [formField]="createTaskForm.titleTask"
+        placeholder="Título da tarefa"
+        class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      />
+      @if (createTaskForm.titleTask().touched() && createTaskForm.titleTask().invalid()) {
+        <ul class="w-full">
+          @for (error of createTaskForm.titleTask().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="description" class="mb-1 block text-sm font-medium text-blue-400">Descrição</label>
+      <textarea
+        id="description"
+        [formField]="createTaskForm.descriptionTask"
+        placeholder="Descrição da tarefa"
+        class="w-full rounded-3xl border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      ></textarea>
+      @if (createTaskForm.descriptionTask().touched() && createTaskForm.descriptionTask().invalid()) {
+        <ul class="w-full">
+          @for (error of createTaskForm.descriptionTask().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="category" class="mb-1 block text-sm font-medium text-blue-400">Categoria</label>
+      <input
+        id="category"
+        type="text"
+        [formField]="createTaskForm.titleCategory"
+        placeholder="Nome da categoria"
+        class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      />
+      @if (createTaskForm.titleCategory().touched() && createTaskForm.titleCategory().invalid()) {
+        <ul class="w-full">
+          @for (error of createTaskForm.titleCategory().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="mb-5 w-full">
+      <label for="category-description" class="mb-1 block text-sm font-medium text-blue-400"
+        >Descrição da categoria</label
+      >
+      <textarea
+        id="categoryDescription"
+        [formField]="createTaskForm.descriptionCategory"
+        placeholder="Descrição da categoria"
+        class="w-full rounded-3xl border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+      ></textarea>
+      @if (
+        createTaskForm.descriptionCategory().touched() && createTaskForm.descriptionCategory().invalid()
+      ) {
+        <ul class="w-full">
+          @for (error of createTaskForm.descriptionCategory().errors(); track error) {
+            <li class="w-full text-sm font-medium text-red-400">{{ error.message }}</li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="flex justify-center gap-4">
+      <button
+        type="submit"
+        [disabled]="createTaskForm().submitting()"
+        class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-blue-200"
+      >
+        @if (!createTaskForm().submitting()) {
+          Confirmar
+        } @else {
+          Enviando...
+        }
+      </button>
+      <button
+        type="button"
+        class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-red-200 focus:bg-red-300"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</fieldset>
