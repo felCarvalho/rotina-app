@@ -30,7 +30,7 @@ export class CreateTaskComponent {
       });
       validateHttp(schema.titleTask, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}task/title/check/${value()}` : undefined,
+          value() ? `${environments.apiUrl}verify/task/title/check/${value()}` : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -49,7 +49,7 @@ export class CreateTaskComponent {
       });
       validateHttp(schema.titleCategory, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}category/title/check/${value()}` : undefined,
+          value() ? `${environments.apiUrl}verify/category/title/check/${value()}` : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {

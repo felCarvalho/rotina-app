@@ -1,14 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  categoryDescription: string;
-  status: 'pendente' | 'concluida';
-}
+import {Task} from '../../type';
 
 @Component({
   selector: 'app-dashboard',
