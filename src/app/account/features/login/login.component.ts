@@ -2,13 +2,13 @@ import { Component, signal, inject } from '@angular/core';
 import { form, FormField, required, email, FormRoot } from '@angular/forms/signals';
 import { AuthService} from '../../services/auth.service';
 import { PostLogin } from '../../type';
-import { Router } from '@angular/router';
+import { Router,RouterLink} from '@angular/router';
 import type { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-feature',
+  imports: [FormField, FormRoot, RouterLink],
   templateUrl: './login.component.html',
-  imports: [FormField, FormRoot],
 })
 export class LoginFeatureComponent {
   private readonly service = inject(AuthService);
@@ -34,11 +34,14 @@ export class LoginFeatureComponent {
       submission: {
         action: async (field) => {
           this.service.postLogin({ body: field().value() }).subscribe({
-            next: (data) => {},
-            error: (error: HttpErrorResponse) => {},
+            next:() => 
+               this.route.navigate(["/home"])
+            ,
+            error: (error: HttpErrorResponse) => {
+              console.error({error})
+            },
           });
-        },
-        onInvalid: (field) => {},
+        }
       },
     },
   );

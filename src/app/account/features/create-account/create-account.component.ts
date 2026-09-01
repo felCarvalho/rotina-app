@@ -82,9 +82,9 @@ export class CreateAccountComponent {
       submission: {
         action: async (field) => {
           const posUser = this.service.postUser({ body: field().value() }).subscribe({
-            next: (data) => {
-              this.route.navigate(['/home']);
-            },
+            next: () => 
+              this.route.navigate(['/login'])
+            ,
             error: (error: HttpErrorResponse) => {},
           });
         },
