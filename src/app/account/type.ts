@@ -12,4 +12,4 @@ export interface PostLogin {
   password: string;
 }
 
-export type loginResponse = { data: string; error: string; success: boolean };
+export type loginResponse = string

@@ -8,9 +8,11 @@ export class TaskService {
   private httpClient = inject(HttpClient);
   private httpResource = httpResource;
 
-  createTask(body: PostTask) {
+  public createTask(body: PostTask) {
     return this.httpClient.post<PostTask>(`${environments.apiUrl}task/create`, {
       ...body,
+    }, {
+      credentials: 'include',
     });
   }
 }

@@ -7,10 +7,15 @@ import { loginResponse, PostLogin } from '../type';
 export class AuthService {
   private httpClient = inject(HttpClient);
 
-  postLogin({ body }: { body: PostLogin }) {
+  public postLogin({ body }: { body: PostLogin }) {
     return this.httpClient.post<loginResponse>(`${environments.apiUrl}auth/login`, {
       ...body,
-    });
+    },
+    {
+      responseType: 'text',
+      credentials: "include"
+    }
+    )
   }
 
   public postRefreshToken() {
