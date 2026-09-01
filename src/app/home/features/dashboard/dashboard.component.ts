@@ -2,30 +2,24 @@ import { Component, signal } from '@angular/core';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import {Task} from '../../type';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   imports: [CreateTaskComponent],
 })
 export class DashboardComponent {
-  tasks = signal<Task[]>([
-    {
-      id: '1',
-      title: 'Estudar Angular',
-      description: 'Revisar signals e forms.',
-      category: 'Estudos',
-      categoryDescription: 'Aprendizado diário',
-      status: 'pendente',
-    },
-    {
-      id: '2',
-      title: 'Treinar',
-      description: 'Sessão de musculação.',
-      category: 'Saúde',
-      categoryDescription: 'Exercícios físicos',
-      status: 'concluida',
-    },
-  ]);
+  private readonly tasks = signal<Task[]>([])
+  public isCreateModalOpen = signal<boolean>(false);
+
+  public openCreateModal() {
+    this.isCreateModalOpen.set(true);
+  }
+
+}
+
+/**
+ * tasks = signal<Task[]>([]);
 
   isCreateModalOpen = signal(false);
   isRenameModalOpen = signal(false);
@@ -34,7 +28,7 @@ export class DashboardComponent {
   renameValue = signal('');
 
   openCreateModal() {
-    this.isCreateModalOpen.set(true);
+    this.isCreateModalOpen.set(false);
   }
 
   closeCreateModal() {
@@ -85,4 +79,4 @@ export class DashboardComponent {
   deleteTask(task: Task) {
     this.tasks.update((list) => list.filter((t) => t.id !== task.id));
   }
-}
+ */
