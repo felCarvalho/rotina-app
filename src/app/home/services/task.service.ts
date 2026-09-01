@@ -1,7 +1,7 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { environments } from '../../../environments/environments';
-import { createTaskResponse, PostTask } from '../type';
+import { createTaskResponse, PostTask, Task } from '../type';
 
 @Service()
 export class TaskService {
@@ -15,4 +15,11 @@ export class TaskService {
       credentials: 'include',
     });
   }
+
+  public getAllTasks() {
+    return this.httpClient.get<Task[]>(`${environments.apiUrl}task/all`, {
+      credentials: 'include',
+    });
+  }
+  
 }
