@@ -28,7 +28,7 @@ export class CreateAccountComponent {
   }
 
   toggleShowRepeatPassword() {
-    this.showRepeatPassword.update((s) => s);
+    this.showRepeatPassword.update((s) => !s);
   }
 
   createAccountForm = form(
@@ -60,7 +60,7 @@ export class CreateAccountComponent {
       });
       validateHttp(schema.identifier, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}auth/credentials/check/${value()}` : undefined,
+          value() ? `${environments.apiUrl}verify/credentials/check/${value()}` : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -74,7 +74,7 @@ export class CreateAccountComponent {
         },
         onError: (error, ctx) => ({
           kind: 'network',
-          message: `Ops, tivemos alguns problemaas ao verificar seu email: ${ctx.value()}`,
+          message: `Ops, tivemos alguns problemas ao verificar seu email: ${ctx.value()}`,
         }),
       });
     },
