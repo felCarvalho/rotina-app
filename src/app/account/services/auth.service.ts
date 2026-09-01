@@ -12,4 +12,10 @@ export class AuthService {
       ...body,
     });
   }
+
+  public postRefreshToken() {
+    return this.httpClient.post(`${environments.apiUrl}auth/refresh`,{},  {
+      credentials: "include"
+    })
+  }
 }
