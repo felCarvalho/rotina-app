@@ -1,5 +1,6 @@
-<fieldset class="w-full rounded-4xl bg-white border-blue-200/50 p-7 text-blue-400 shadow-lg md:w-2xl">
-  <legend class="px-4 text-2xl font-bold text-blue-400">Criar tarefa</legend>
+<div class="min-h-dvh flex flex-col justify-center items-center">
+  <fieldset class="w-full h-full rounded-4xl bg-white border-blue-100/30 border-2 p-7 text-blue-400 shadow-lg md:w-2xl">
+    <legend class="px-4 text-2xl font-bold text-blue-400">Criar tarefa</legend>
 
   <form [formRoot]="createTaskForm" class="w-full">
     <div class="mb-5 w-full">
@@ -85,7 +86,8 @@
         }
       </button>
       <button
-        type="button"
+        type='reset'
+        (click)="clearForm()"
         class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-red-200 focus:bg-red-300"
       >
         Cancelar
@@ -93,3 +95,14 @@
     </div>
   </form>
 </fieldset>
+<div>
+  <button
+    type="button"
+    (click)="isBack()"
+    class="mt-4 bg-white px-5 py-2 text-blue-400 shadow-lg rounded-full font-semibold border-2 border-blue-100/50 transition hover:bg-blue-200 focus:bg-blue-300"
+  >
+    X
+  </button>
+</div>
+</div>
+
