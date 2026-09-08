@@ -3,13 +3,14 @@ import { form, FormField, required, email, FormRoot, validateHttp } from '@angul
 import { UserService } from '../../services/account.service';
 import { PostUser } from '../../type';
 import { environments } from '../../../../environments/environments';
-import { Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import type { HttpErrorResponse } from '@angular/common/http';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  imports: [FormField, FormRoot, RouterLink],
+  imports: [FormField, FormRoot, RouterLink, MatIcon],
 })
 export class CreateAccountComponent {
   private readonly service = inject(UserService);
@@ -41,7 +42,7 @@ export class CreateAccountComponent {
       email(schema.identifier, { message: 'Formato de Email inválido' });
       validateHttp(schema.name, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}user/username/check/${value()}` : undefined,
+          value() ? `${environments.apiUrl}verify/user/username/check/${value()}` : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -60,7 +61,7 @@ export class CreateAccountComponent {
       });
       validateHttp(schema.identifier, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}verify/credentials/check/${value()}` : undefined,
+          value() ? `${environments.apiUrl}verify/auth/credentials/check/${value()}` : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -82,9 +83,7 @@ export class CreateAccountComponent {
       submission: {
         action: async (field) => {
           const posUser = this.service.postUser({ body: field().value() }).subscribe({
-            next: () => 
-              this.route.navigate(['/login'])
-            ,
+            next: () => this.route.navigate(['/login']),
             error: (error: HttpErrorResponse) => {},
           });
         },
