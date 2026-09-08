@@ -1,82 +1,59 @@
-import { Component, signal } from '@angular/core';
-import { CreateTaskComponent } from '../create-task/create-task.component';
-import {Task} from '../../type';
-
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Task } from '../../type';
+import { TaskService } from '../../services/task.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  imports: [CreateTaskComponent],
+  imports: [MatIconModule],
 })
-export class DashboardComponent {
-  private readonly tasks = signal<Task[]>([])
-  public isCreateModalOpen = signal<boolean>(false);
+export class DashboardComponent implements OnInit {
+  public readonly tasks = signal<Task[]>([]);
+  public readonly taskStatusUpdated = signal<'incompleta' | 'concluida'>('incompleta');
+  public readonly route = inject(Router);
+  private readonly service = inject(TaskService);
 
-  public openCreateModal() {
-    this.isCreateModalOpen.set(true);
+  ngOnInit() {
+    this.service.getAllTasks().subscribe({
+      next: (response) => {
+        this.tasks.set(response);
+      },
+      error: (error) => {
+        console.log({ error });
+      },
+    });
   }
 
+  public updateTaskStatus({
+    status,
+    taskId,
+  }: {
+    status: 'incompleta' | 'concluida';
+    taskId: string;
+  }) {
+    this.service.updateTaskStatus(taskId, status).subscribe({
+      next: (response) => {
+        if (response.success) {
+          const getTask = this.service.getAllTasks().subscribe({
+            next: (response) => {
+              this.tasks.set(response);
+            },
+            error: (error) => {},
+          });
+        }
+      },
+    });
+  }
+
+  public openRename({ labelId }: { labelId: string }) {
+    this.route.navigate(['/home/renomear', labelId], {
+      state: this.tasks().find((s) => s.id === labelId),
+    });
+  }
+
+  public openCreateTask() {
+    this.route.navigate(['/home/create-task']);
+  }
 }
-
-/**
- * tasks = signal<Task[]>([]);
-
-  isCreateModalOpen = signal(false);
-  isRenameModalOpen = signal(false);
-  isDetailsModalOpen = signal(false);
-  selectedTask = signal<Task | null>(null);
-  renameValue = signal('');
-
-  openCreateModal() {
-    this.isCreateModalOpen.set(false);
-  }
-
-  closeCreateModal() {
-    this.isCreateModalOpen.set(false);
-  }
-
-  openRenameModal(task: Task) {
-    this.selectedTask.set(task);
-    this.renameValue.set(task.title);
-    this.isRenameModalOpen.set(true);
-  }
-
-  closeRenameModal() {
-    this.isRenameModalOpen.set(false);
-    this.selectedTask.set(null);
-  }
-
-  renameTask() {
-    const task = this.selectedTask();
-    const value = this.renameValue().trim();
-
-    if (!task || !value) {
-      return;
-    }
-
-    this.tasks.update((list) => list.map((t) => (t.id === task.id ? { ...t, title: value } : t)));
-    this.closeRenameModal();
-  }
-
-  openDetailsModal(task: Task) {
-    this.selectedTask.set(task);
-    this.isDetailsModalOpen.set(true);
-  }
-
-  closeDetailsModal() {
-    this.isDetailsModalOpen.set(false);
-    this.selectedTask.set(null);
-  }
-
-  toggleStatus(task: Task) {
-    this.tasks.update((list) =>
-      list.map((t) =>
-        t.id === task.id ? { ...t, status: t.status === 'pendente' ? 'concluida' : 'pendente' } : t,
-      ),
-    );
-  }
-
-  deleteTask(task: Task) {
-    this.tasks.update((list) => list.filter((t) => t.id !== task.id));
-  }
- */
