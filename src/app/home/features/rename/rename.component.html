@@ -1,0 +1,45 @@
+<div class="flex min-h-dvh flex-col items-center justify-center">
+  <fieldset
+    class="h-full w-full rounded-4xl border-2 border-blue-100/30 bg-white p-7 text-blue-400 shadow-lg md:w-2xl"
+  >
+    <legend class="px-4 text-2xl font-bold text-blue-400">Renomear</legend>
+
+    <form [formRoot]="updateLabelName" class="w-full">
+      <div class="mb-5 w-full">
+        <label for="rename" class="mb-1 block text-sm font-medium text-blue-400">Renomear</label>
+        <input
+          id="rename"
+          type="text"
+          [formField]="updateLabelName.labelName"
+          [(value)]="labelName().labelName"
+          [placeholder]=""
+          class="w-full rounded-full border border-blue-400/40 bg-blue-50/10 p-3 text-blue-200 outline-none placeholder:text-xs placeholder:text-blue-900/50 focus:bg-blue-100/50"
+        />
+      </div>
+      <div class="flex justify-center gap-4">
+        <button
+          (click)="updateTitleTask()"
+          type="submit"
+          class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-blue-200"
+        >
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="rounded-full bg-blue-400 px-5 py-2 font-semibold text-white transition hover:bg-red-200 focus:bg-red-300"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </fieldset>
+  <div>
+    <button
+      (click)="navigateBack()"
+      type="button"
+      class="mt-4 rounded-full border-2 border-blue-100/50 bg-white pt-1.5 w-13 h-13 font-semibold text-blue-400 shadow-lg transition hover:bg-blue-200 focus:bg-blue-300"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
