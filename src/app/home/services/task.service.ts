@@ -1,25 +1,47 @@
 import { inject, Service } from '@angular/core';
-import { HttpClient, httpResource } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../environments/environments';
-import { createTaskResponse, PostTask, Task } from '../type';
+import { PostTask, Task } from '../type';
 
 @Service()
 export class TaskService {
   private httpClient = inject(HttpClient);
-  private httpResource = httpResource;
 
   public createTask(body: PostTask) {
-    return this.httpClient.post<PostTask>(`${environments.apiUrl}task/create`, {
-      ...body,
-    }, {
-      credentials: 'include',
-    });
+    return this.httpClient.post<{ data: string; success: boolean }>(
+      `${environments.apiUrl}task/create`,
+      {
+        ...body,
+      },
+      {
+        credentials: 'include',
+      },
+    );
   }
 
   public getAllTasks() {
-    return this.httpClient.get<Task[]>(`${environments.apiUrl}task/all`, {
+    return this.httpClient.get<Task[]>(`${environments.apiUrl}task/all/user`, {
       credentials: 'include',
     });
   }
-  
+
+  public updateTitle(taskId: string, title: string) {
+    return this.httpClient.patch<{ data: string; success: boolean }>(
+      `${environments.apiUrl}task/update/title/${taskId}`,
+      { title },
+      {
+        credentials: 'include',
+      },
+    );
+  }
+
+  public updateTaskStatus(taskId: string, status: 'incompleta' | 'concluida') {
+    return this.httpClient.patch<{ message: string; success: boolean }>(
+      `${environments.apiUrl}task/update/status/${taskId}`,
+      { status },
+      {
+        credentials: 'include',
+      },
+    );
+  }
 }
