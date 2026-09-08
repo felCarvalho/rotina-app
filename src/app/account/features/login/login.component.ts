@@ -1,13 +1,15 @@
 import { Component, signal, inject } from '@angular/core';
 import { form, FormField, required, email, FormRoot } from '@angular/forms/signals';
-import { AuthService} from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { PostLogin } from '../../type';
-import { Router,RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import type { HttpErrorResponse } from '@angular/common/http';
+import { LocalStorageUtil } from '../../../utils/local-storage/local.storage';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login-feature',
-  imports: [FormField, FormRoot, RouterLink],
+  imports: [FormField, FormRoot, RouterLink, MatIconModule],
   templateUrl: './login.component.html',
 })
 export class LoginFeatureComponent {
@@ -34,14 +36,15 @@ export class LoginFeatureComponent {
       submission: {
         action: async (field) => {
           this.service.postLogin({ body: field().value() }).subscribe({
-            next:() => 
-               this.route.navigate(["/home"])
-            ,
+            next: (value) => {
+              this.route.navigate(['/home']);
+              LocalStorageUtil.setItem('sessionId', value);
+            },
             error: (error: HttpErrorResponse) => {
-              console.error({error})
+              console.error({ error });
             },
           });
-        }
+        },
       },
     },
   );
