@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environments } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { createUserResponse, getUserResponse, PostUser } from '../type';
 
 @Service()
@@ -9,7 +9,7 @@ export class UserService {
 
   postUser({ body }: { body: PostUser }) {
     return this.httpClient.post<createUserResponse>(
-      `${environments.apiUrl}account/create`,
+      `${environment.apiUrl}account/create`,
       {
         ...body,
       },
@@ -18,14 +18,14 @@ export class UserService {
 
   public getUser() {
     return this.httpClient.get<getUserResponse>(
-      `${environments.apiUrl}info/user`,
+      `${environment.apiUrl}info/user`,
       { credentials: 'include' },
     );
   }
 
   public logOut() {
     return this.httpClient.post(
-      `${environments.apiUrl}auth/logout`,
+      `${environment.apiUrl}auth/logout`,
       {},
       { credentials: 'include' },
     );

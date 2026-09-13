@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environments } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { PostLogin, LoginResponse } from '../type';
 import { LocalStorageUtil } from '../../utils/local-storage/local.storage';
 
@@ -17,7 +17,7 @@ export class AuthService {
 
   public postLogin({ body }: { body: PostLogin }) {
     return this.httpClient.post<LoginResponse>(
-      `${environments.apiUrl}auth/login`,
+      `${environment.apiUrl}auth/login`,
       {
         ...body,
       },
@@ -30,7 +30,7 @@ export class AuthService {
 
   public postRefreshToken() {
     return this.httpClient.post(
-      `${environments.apiUrl}auth/refresh`,
+      `${environment.apiUrl}auth/refresh`,
       {},
       {
         credentials: 'include',

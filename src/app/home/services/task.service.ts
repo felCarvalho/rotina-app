@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environments } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 import { PostTask, Task } from '../type';
 
 @Service()
@@ -9,7 +9,7 @@ export class TaskService {
 
   public createTask(body: PostTask) {
     return this.httpClient.post<{ data: string; success: boolean }>(
-      `${environments.apiUrl}task/create`,
+      `${environment.apiUrl}task/create`,
       {
         ...body,
       },
@@ -20,7 +20,7 @@ export class TaskService {
   }
 
   public getAllTasks() {
-    return this.httpClient.get<Task[]>(`${environments.apiUrl}task/all/user`, {
+    return this.httpClient.get<Task[]>(`${environment.apiUrl}task/all/user`, {
       credentials: 'include',
     });
   }
@@ -31,7 +31,7 @@ export class TaskService {
       error: string;
       success: boolean;
     }>(
-      `${environments.apiUrl}task/update/title/${taskId}`,
+      `${environment.apiUrl}task/update/title/${taskId}`,
       { title },
       {
         credentials: 'include',
@@ -41,7 +41,7 @@ export class TaskService {
 
   public updateTaskStatus(taskId: string, status: 'incompleta' | 'concluida') {
     return this.httpClient.patch<{ data: string; success: boolean }>(
-      `${environments.apiUrl}task/update/status/${taskId}`,
+      `${environment.apiUrl}task/update/status/${taskId}`,
       { status },
       {
         credentials: 'include',
@@ -54,7 +54,7 @@ export class TaskService {
       data: string;
       error: string;
       success: boolean;
-    }>(`${environments.apiUrl}task/delete/${taskId}`, {
+    }>(`${environment.apiUrl}task/delete/${taskId}`, {
       credentials: 'include',
     });
   }
