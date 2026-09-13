@@ -11,7 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DashboardComponent implements OnInit {
   public readonly tasks = signal<Task[]>([]);
-  public readonly taskStatusUpdated = signal<'incompleta' | 'concluida'>('incompleta');
+  public readonly taskStatusUpdated = signal<'incompleta' | 'concluida'>(
+    'incompleta',
+  );
   public readonly route = inject(Router);
   private readonly service = inject(TaskService);
 
@@ -36,7 +38,24 @@ export class DashboardComponent implements OnInit {
     this.service.updateTaskStatus(taskId, status).subscribe({
       next: (response) => {
         if (response.success) {
-          const getTask = this.service.getAllTasks().subscribe({
+          alert(response.data);
+          this.service.getAllTasks().subscribe({
+            next: (response) => {
+              this.tasks.set(response);
+            },
+            error: (error) => {},
+          });
+        }
+      },
+    });
+  }
+
+  public deleteTask(taskId: string) {
+    this.service.deleteTask(taskId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          alert(response.data);
+          this.service.getAllTasks().subscribe({
             next: (response) => {
               this.tasks.set(response);
             },
@@ -51,6 +70,10 @@ export class DashboardComponent implements OnInit {
     this.route.navigate(['/home/renomear', labelId], {
       state: this.tasks().find((s) => s.id === labelId),
     });
+  }
+
+  public openUserAccount() {
+    this.route.navigate(['/home/user/account']);
   }
 
   public openCreateTask() {

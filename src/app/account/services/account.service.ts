@@ -1,17 +1,34 @@
 import { inject, Service } from '@angular/core';
-import { HttpClient, httpResource } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../environments/environments';
-import { createUserResponse, PostUser } from '../type';
+import { createUserResponse, getUserResponse, PostUser } from '../type';
 
 @Service()
 export class UserService {
   private httpClient = inject(HttpClient);
-  private httpResource = httpResource;
 
   postUser({ body }: { body: PostUser }) {
-    return this.httpClient.post<createUserResponse>(`${environments.apiUrl}account/create`, {
-      ...body,
-    });
+    return this.httpClient.post<createUserResponse>(
+      `${environments.apiUrl}account/create`,
+      {
+        ...body,
+      },
+    );
+  }
+
+  public getUser() {
+    return this.httpClient.get<getUserResponse>(
+      `${environments.apiUrl}info/user`,
+      { credentials: 'include' },
+    );
+  }
+
+  public logOut() {
+    return this.httpClient.post(
+      `${environments.apiUrl}auth/logout`,
+      {},
+      { credentials: 'include' },
+    );
   }
 }
 

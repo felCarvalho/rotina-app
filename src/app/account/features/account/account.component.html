@@ -1,0 +1,43 @@
+<div class="mx-4 flex flex-col gap-10 py-2">
+  <div
+    class="flex items-center justify-between rounded-4xl border-2 border-blue-100/30 bg-blue-50/20 p-4 shadow-2xl shadow-blue-50 backdrop-blur-3xl"
+  >
+    <div class="flex items-center gap-2">
+      <h1 class="text-2xl font-bold whitespace-pre text-blue-400">Minha Conta</h1>
+    </div>
+  </div>
+  @if (infoUser?.success) {
+  <div class="flex flex-col gap-1.5 rounded-4xl border-2 border-blue-100/30 bg-blue-50/20 p-4 shadow-lg shadow-blue-50">
+    <div class="flex items-center justify-start gap-1">
+      <p class="font-medium text-blue-400">Nome:</p>
+      <p class="text-blue-300">{{ infoUser?.data?.name }}</p>
+    </div>
+    <div class="flex items-center justify-start gap-1">
+      <p class="font-medium text-blue-400">ID:</p>
+      <p class="text-blue-300">{{ infoUser?.data?.id}}</p>
+    </div>
+    <div class="flex items-center justify-start gap-1">
+      <p class="font-medium text-blue-400">Criado em:</p>
+      <p class="text-blue-300">{{ formatDateAccount(infoUser?.data?.createdAt) }}</p>
+    </div>
+    <div class="flex items-center justify-start gap-1">
+      <p class="font-medium text-blue-400">Atualizado em:</p>
+      <p class="text-blue-300">{{ formatDateAccount(infoUser?.data?.updatedAt) }}</p>
+    </div>
+    <div class="flex items-center justify-start gap-1">
+      <div>
+        <p class="text-blue-400 font-medium">Sair:</p>
+      </div>
+      <div>
+        <button (click)="logout()" class="text-white rounded-2xl pl-1 pt-1 text-center w-9 h-9 bg-blue-400 hover:bg-red-400">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  } @else {
+    <div class="flex items-center justify-center py-10">
+      <p class="text-blue-300">Carregando...</p>
+    </div>
+    }
+</div>

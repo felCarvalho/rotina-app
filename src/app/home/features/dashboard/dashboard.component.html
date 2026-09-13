@@ -5,12 +5,18 @@
     <div class="">
       <h1 class="text-2xl font-bold whitespace-pre text-blue-400">Dashboard</h1>
     </div>
-    <div>
+    <div class="flex items-center gap-2">
       <button
         class="rounded-full bg-blue-300 px-4 py-2 font-bold text-white"
         (click)="openCreateTask()"
       >
         Criar Tarefa
+      </button>
+      <button
+        (click)="openUserAccount()"
+        class="rounded-full bg-blue-300 w-10 h-10 pt-1 font-bold text-white"
+      >
+        <mat-icon aria-hidden="false" aria-label='edit'>account_circle</mat-icon>
       </button>
     </div>
   </div>
@@ -24,12 +30,18 @@
             <p class="font-medium text-blue-400">Titulo:</p>
             <p class="text-blue-300">{{ task.title }}</p>
           </div>
-          <div>
+          <div class="flex items-center justify-end gap-1">
             <button
               (click)="openRename({ labelId: task.id })"
               class="rounded-full bg-blue-300 w-10 h-10 pt-1 font-medium text-white"
             >
               <mat-icon aria-hidden="false" aria-label='rename'>edit</mat-icon>
+            </button>
+            <button
+              (click)="deleteTask(task.id)"
+              class="rounded-full bg-red-300 w-10 h-10 pt-1 font-medium text-white"
+            >
+              <mat-icon aria-hidden="false" aria-label='apagar'>delete</mat-icon>
             </button>
           </div>
         </div>
@@ -58,7 +70,7 @@
           @if (task.status === 'concluida') {
             <button
               (click)="updateTaskStatus({ status: 'incompleta', taskId: task.id })"
-              class="rounded-full bg-green-300 px-3 py-1 font-medium text-white"
+              class="rounded-full bg-red-300 px-3 py-1 font-medium text-white"
             >
               marcar como incompleta
             </button>

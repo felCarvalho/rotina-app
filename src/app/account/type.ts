@@ -5,11 +5,18 @@ export interface PostUser {
   repeatPassword: string;
 }
 
-export type createUserResponse = { data: string; error: string; success: boolean };
+export type createUserResponse = {
+  data: string;
+  success: boolean;
+};
 
-export interface PostLogin {
-  identifier: string;
-  password: string;
-}
-
-export type loginResponse = string
+export type getUserResponse = {
+  data: {
+    id: string;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    identifier: string;
+  };
+  success: boolean;
+};

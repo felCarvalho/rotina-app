@@ -23,6 +23,13 @@ export const homeRoutes: Routes = [
         path: 'renomear/:labelId',
         component: RenameComponent,
       },
+      {
+        path: 'user/account',
+        loadComponent: () =>
+          import('../account/features/account/account.component').then(
+            (m) => m.AccountComponent,
+          ),
+      },
     ],
   },
 ];
