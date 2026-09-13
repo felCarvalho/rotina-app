@@ -1,5 +1,12 @@
 import { Component, signal, inject } from '@angular/core';
-import { form, FormField, required, email, FormRoot, validateHttp } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  required,
+  email,
+  FormRoot,
+  validateHttp,
+} from '@angular/forms/signals';
 import { UserService } from '../../services/account.service';
 import { PostUser } from '../../type';
 import { environments } from '../../../../environments/environments';
@@ -37,12 +44,16 @@ export class CreateAccountComponent {
     (schema) => {
       required(schema.identifier, { message: 'Campo de email é obrigatório' });
       required(schema.password, { message: 'Campo de senha é obrigatório' });
-      required(schema.repeatPassword, { message: 'Campo de repetir senha é obrigatório' });
+      required(schema.repeatPassword, {
+        message: 'Campo de repetir senha é obrigatório',
+      });
       required(schema.name, { message: 'Campo de nome é obrigatório' });
       email(schema.identifier, { message: 'Formato de Email inválido' });
       validateHttp(schema.name, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}verify/user/username/check/${value()}` : undefined,
+          value()
+            ? `${environments.apiUrl}verify/user/username/check/${value()}`
+            : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -61,7 +72,9 @@ export class CreateAccountComponent {
       });
       validateHttp(schema.identifier, {
         request: ({ value }) =>
-          value() ? `${environments.apiUrl}verify/auth/credentials/check/${value()}` : undefined,
+          value()
+            ? `${environments.apiUrl}verify/auth/credentials/check/${value()}`
+            : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
           if (!response.success) {
@@ -82,10 +95,15 @@ export class CreateAccountComponent {
     {
       submission: {
         action: async (field) => {
-          const posUser = this.service.postUser({ body: field().value() }).subscribe({
-            next: () => this.route.navigate(['/login']),
-            error: (error: HttpErrorResponse) => {},
-          });
+          const posUser = this.service
+            .postUser({ body: field().value() })
+            .subscribe({
+              next: (value) => {
+                alert(value.success ? value.data : 'Erro ao criar usuário');
+                this.route.navigate(['/login']);
+              },
+              error: (error: HttpErrorResponse) => {},
+            });
         },
       },
     },

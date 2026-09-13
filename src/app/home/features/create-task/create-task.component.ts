@@ -1,5 +1,11 @@
 import { Component, signal, inject } from '@angular/core';
-import { form, FormField, required, FormRoot, validateHttp } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  required,
+  FormRoot,
+  validateHttp,
+} from '@angular/forms/signals';
 import { TaskService } from '../../services/task.service';
 import { PostTask } from '../../type';
 import { environments } from '../../../../environments/environments';
@@ -37,7 +43,9 @@ export class CreateTaskComponent {
     this.createTask,
     (schema) => {
       required(schema.titleTask, { message: 'Campo de título é obrigatório' });
-      required(schema.titleCategory, { message: 'Campo de categoria é obrigatório' });
+      required(schema.titleCategory, {
+        message: 'Campo de categoria é obrigatório',
+      });
       validateHttp(schema.titleTask, {
         request: ({ value }) => ({
           url: `${environments.apiUrl}verify/task/title/check/${value()}`,
@@ -89,7 +97,6 @@ export class CreateTaskComponent {
         action: async (field) => {
           this.service.createTask(field().value()).subscribe({
             next: (response) => {
-              console.log(response);
               alert(response.data);
               this.route.navigate(['/home']);
             },
