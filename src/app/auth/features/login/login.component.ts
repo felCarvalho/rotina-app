@@ -48,8 +48,8 @@ export class LoginFeatureComponent {
                   ? 'Login realizado com sucesso'
                   : 'Erro ao realizar login',
               );
-              this.route.navigate(['/home']);
-              LocalStorageUtil.setItem('sessionId', value);
+              value ? this.route.navigate(['/home']) : null;
+              value ? LocalStorageUtil.setItem('sessionId', value) : null;
             },
             error: (error: HttpErrorResponse) => {
               console.error({ error });
