@@ -8,7 +8,7 @@ import {
 } from '@angular/forms/signals';
 import { TaskService } from '../../services/task.service';
 import { PostTask } from '../../type';
-import { environments } from '../../../../environments/environments';
+import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
@@ -48,7 +48,7 @@ export class CreateTaskComponent {
       });
       validateHttp(schema.titleTask, {
         request: ({ value }) => ({
-          url: `${environments.apiUrl}verify/task/title/check/${value()}`,
+          url: `${environment.apiUrl}verify/task/title/check/${value()}`,
           credentials: 'include',
         }),
         onSuccess: (response: { error: string; success: boolean }) => {
@@ -72,7 +72,7 @@ export class CreateTaskComponent {
       });
       validateHttp(schema.titleCategory, {
         request: ({ value }) => ({
-          url: `${environments.apiUrl}verify/category/title/check/${value()}`,
+          url: `${environment.apiUrl}verify/category/title/check/${value()}`,
           credentials: 'include',
         }),
         onSuccess: (response: { error: string; success: boolean }) => {

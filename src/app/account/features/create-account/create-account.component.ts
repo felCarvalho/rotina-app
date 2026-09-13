@@ -9,7 +9,7 @@ import {
 } from '@angular/forms/signals';
 import { UserService } from '../../services/account.service';
 import { PostUser } from '../../type';
-import { environments } from '../../../../environments/environments';
+import { environment } from '../../../../environments/environment';
 import { Router, RouterLink } from '@angular/router';
 import type { HttpErrorResponse } from '@angular/common/http';
 import { MatIcon } from '@angular/material/icon';
@@ -52,7 +52,7 @@ export class CreateAccountComponent {
       validateHttp(schema.name, {
         request: ({ value }) =>
           value()
-            ? `${environments.apiUrl}verify/user/username/check/${value()}`
+            ? `${environment.apiUrl}verify/user/username/check/${value()}`
             : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
@@ -73,7 +73,7 @@ export class CreateAccountComponent {
       validateHttp(schema.identifier, {
         request: ({ value }) =>
           value()
-            ? `${environments.apiUrl}verify/auth/credentials/check/${value()}`
+            ? `${environment.apiUrl}verify/auth/credentials/check/${value()}`
             : undefined,
         onSuccess: (response: { error: string; success: boolean }) => {
           if (response === null) return null;
