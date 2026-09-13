@@ -1,5 +1,11 @@
 import { Component, signal, inject } from '@angular/core';
-import { form, FormField, required, email, FormRoot } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  required,
+  email,
+  FormRoot,
+} from '@angular/forms/signals';
 import { AuthService } from '../../services/auth.service';
 import { PostLogin } from '../../type';
 import { Router, RouterLink } from '@angular/router';
@@ -37,6 +43,11 @@ export class LoginFeatureComponent {
         action: async (field) => {
           this.service.postLogin({ body: field().value() }).subscribe({
             next: (value) => {
+              alert(
+                value
+                  ? 'Login realizado com sucesso'
+                  : 'Erro ao realizar login',
+              );
               this.route.navigate(['/home']);
               LocalStorageUtil.setItem('sessionId', value);
             },
