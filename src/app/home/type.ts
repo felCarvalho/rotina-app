@@ -12,10 +12,10 @@ export interface Task {
   title: string;
   description: string;
   category: Category;
-  user: string;
-  created: Date;
-  updated: Date;
-  deleted: Date | null;
+  user: User;
+  createAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
   status: 'incompleta' | 'concluida';
 }
 
@@ -24,7 +24,15 @@ export interface Category {
   title: string;
   description: string;
   user: string;
-  created: Date;
-  updated: Date;
-  deleted: Date | null;
+  createAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  createAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
 }

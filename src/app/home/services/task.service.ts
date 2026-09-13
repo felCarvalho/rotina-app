@@ -26,7 +26,11 @@ export class TaskService {
   }
 
   public updateTitle(taskId: string, title: string) {
-    return this.httpClient.patch<{ data: string; success: boolean }>(
+    return this.httpClient.patch<{
+      data: string;
+      error: string;
+      success: boolean;
+    }>(
       `${environments.apiUrl}task/update/title/${taskId}`,
       { title },
       {
@@ -36,12 +40,22 @@ export class TaskService {
   }
 
   public updateTaskStatus(taskId: string, status: 'incompleta' | 'concluida') {
-    return this.httpClient.patch<{ message: string; success: boolean }>(
+    return this.httpClient.patch<{ data: string; success: boolean }>(
       `${environments.apiUrl}task/update/status/${taskId}`,
       { status },
       {
         credentials: 'include',
       },
     );
+  }
+
+  public deleteTask(taskId: string) {
+    return this.httpClient.delete<{
+      data: string;
+      error: string;
+      success: boolean;
+    }>(`${environments.apiUrl}task/delete/${taskId}`, {
+      credentials: 'include',
+    });
   }
 }
