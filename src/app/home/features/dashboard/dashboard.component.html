@@ -1,4 +1,4 @@
-<div class="mx-4 flex flex-col gap-10 py-2">
+<div class="mx-2 md:mx-4 flex flex-col gap-10 py-2">
   <div
     class="flex items-center justify-between rounded-4xl border-2 border-blue-100/30 bg-blue-50/20 p-4 shadow-2xl shadow-blue-50 backdrop-blur-3xl"
   >
@@ -28,7 +28,7 @@
         <div class="flex items-center justify-between gap-1">
           <div class="flex items-center justify-start gap-1">
             <p class="font-medium text-blue-400">Titulo:</p>
-            <p class="text-blue-300">{{ task.title }}</p>
+            <p class="text-blue-300 truncate">{{ task.title }}</p>
           </div>
           <div class="flex items-center justify-end gap-1">
             <button
@@ -48,14 +48,14 @@
         <div class="flex items-center justify-between gap-1">
           <div class="flex items-center justify-start gap-1">
             <p class="font-medium text-blue-400">Descrição:</p>
-            <p class="text-blue-300">
+            <p class="text-blue-300 truncate">
               {{ task.description ? task.description : 'Nenhuma descrição disponível' }}
             </p>
           </div>
         </div>
         <div class="flex items-center justify-start gap-1">
           <p class="font-medium text-blue-400">Categoria:</p>
-          <p class="text-blue-300">{{ task.category.title }}</p>
+          <p class="text-blue-300 truncate">{{ task.category.title }}</p>
         </div>
         <div class="flex items-center justify-start gap-1">
           <p class="font-medium text-blue-400">Status:</p>
