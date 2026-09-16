@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit {
         alert('Usuario saiu com sucesso');
         this.getInfoUser.set(undefined);
       },
-      error: (error) => console.log({ error }),
+      error: (error) => alert(error.error.error),
     });
   }
 

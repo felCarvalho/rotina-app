@@ -52,7 +52,7 @@ export class LoginFeatureComponent {
               value ? LocalStorageUtil.setItem('sessionId', value) : null;
             },
             error: (error: HttpErrorResponse) => {
-              console.error({ error });
+              alert(error.error.error);
             },
           });
         },

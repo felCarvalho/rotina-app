@@ -102,7 +102,7 @@ export class CreateAccountComponent {
                 alert(value.success ? value.data : 'Erro ao criar usuário');
                 this.route.navigate(['/login']);
               },
-              error: (error: HttpErrorResponse) => {},
+              error: (error: HttpErrorResponse) => alert(error.error.error),
             });
         },
       },

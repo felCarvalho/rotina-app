@@ -101,10 +101,7 @@ export class CreateTaskComponent {
               this.route.navigate(['/home']);
             },
             error: (error) => {
-              console.log({
-                error,
-              });
-              alert(error.error.message);
+              alert(error.error.error);
             },
           });
         },

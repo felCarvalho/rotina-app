@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
         this.tasks.set(response);
       },
       error: (error) => {
-        console.log({ error });
+        alert(error.error.message);
       },
     });
   }
@@ -43,7 +43,9 @@ export class DashboardComponent implements OnInit {
             next: (response) => {
               this.tasks.set(response);
             },
-            error: (error) => {},
+            error: (error) => {
+              alert(error.error.message);
+            },
           });
         }
       },
@@ -59,7 +61,9 @@ export class DashboardComponent implements OnInit {
             next: (response) => {
               this.tasks.set(response);
             },
-            error: (error) => {},
+            error: (error) => {
+              alert(error.error.message);
+            },
           });
         }
       },
