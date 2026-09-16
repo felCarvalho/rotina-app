@@ -1,5 +1,11 @@
 import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
-import { form, FormField, FormRoot, required, validateHttp } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  FormRoot,
+  required,
+  validateHttp,
+} from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../../services/task.service';
@@ -29,22 +35,27 @@ export class RenameComponent implements OnInit, OnDestroy {
   }
 
   updateLabelName = form(this.labelName, (schema) => {
-    required(schema.labelName, { message: 'Campo de renomear não pode ser vazio' });
+    required(schema.labelName, {
+      message: 'Campo de renomear não pode ser vazio',
+    });
   });
 
   public updateTitleTask() {
     console.log(this.labelName, this.labelId);
-    this.taskService.updateTitle(this.labelId(), this.labelName().labelName).subscribe({
-      next: (response) => {
-        this.taskService.getAllTasks();
-        alert(response.data);
-        this.router.navigate(['../../'], { relativeTo: this.route });
-      },
-      error(err: { error: { error: string; statusCode: number; message: string } }) {
-        console.log(err.error.message);
-        alert(err.error.message);
-      },
-    });
+    this.taskService
+      .updateTitle(this.labelId(), this.labelName().labelName)
+      .subscribe({
+        next: (response) => {
+          this.taskService.getAllTasks();
+          alert(response.data);
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        },
+        error(err: {
+          error: { error: string; statusCode: number; message: string };
+        }) {
+          alert(err.error.message);
+        },
+      });
   }
 
   //navega de volta para a tela anterior queo usuário estava antes de abrir o modal
