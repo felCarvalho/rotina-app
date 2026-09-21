@@ -43,16 +43,12 @@ export class LoginFeatureComponent {
         action: async (field) => {
           this.service.postLogin({ body: field().value() }).subscribe({
             next: (value) => {
-              alert(
-                value
-                  ? 'Login realizado com sucesso'
-                  : 'Erro ao realizar login',
-              );
-              value ? this.route.navigate(['/home']) : null;
-              value ? LocalStorageUtil.setItem('sessionId', value) : null;
+              alert('Login realizado com sucesso');
+              this.route.navigate(['/home']);
+              LocalStorageUtil.setItem('sessionId', value);
             },
             error: (error: HttpErrorResponse) => {
-              alert(error.error.error);
+              alert(error.error.message);
             },
           });
         },
